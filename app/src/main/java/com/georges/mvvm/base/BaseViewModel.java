@@ -28,7 +28,7 @@ public class BaseViewModel extends ViewModel {
         ConnectivityManager cm = (ConnectivityManager) Application.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         assert cm != null;
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        return cm.isDefaultNetworkActive();
     }
 
     @Override
