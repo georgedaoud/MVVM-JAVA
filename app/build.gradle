@@ -1,5 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: "org.sonarqube"
+sonarqube {
+    properties {
+        property "sonar.projectName", "MVVM"
+        property "sonar.projectKey", "MVVM"
+        property "sonar.tests", ["src/test/java"]
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+        property "sonar.exclusions", '**/*Test*/**,' +
+                '*.json,' +
+                '**/*test*/**,' +
+                '**/.gradle/**,' +
+                '**/R.class'
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -37,21 +52,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    sonarqube {
-        properties {
-            property "sonar.projectName", "MVVM"
-            property "sonar.projectKey", "MVVM"
-            property "sonar.tests", ["src/test/java"]
-            property "sonar.test.inclusions", "**/*Test*/**"
-            property "sonar.sourceEncoding", "UTF-8"
-            property "sonar.sources", "src/main/java"
-            property "sonar.exclusions", '**/*Test*/**,' +
-                    '*.json,' +
-                    '**/*test*/**,' +
-                    '**/.gradle/**,' +
-                    '**/R.class'
-        }
     }
 }
 
