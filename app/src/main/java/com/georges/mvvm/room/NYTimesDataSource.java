@@ -2,8 +2,6 @@ package com.georges.mvvm.room;
 
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-
 import com.georges.mvvm.room.roomModel.CachingModel;
 
 import java.util.Date;

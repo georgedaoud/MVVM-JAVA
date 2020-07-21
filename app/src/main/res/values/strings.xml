@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MVVM</string>
+    <string name="an_error_occurred_please_try_again">An error occurred please check your connection and try again…</string>
+    <string name="try_again">Try Again</string>
 </resources>
