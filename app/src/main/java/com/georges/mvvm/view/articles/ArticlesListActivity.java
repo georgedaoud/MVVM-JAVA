@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.georges.mvvm.Application;
+import com.georges.mvvm.ApplicationClass;
 import com.georges.mvvm.R;
 import com.georges.mvvm.databinding.ActivityArticlesListBinding;
 import com.georges.mvvm.repository.model.resp.Result;
@@ -39,7 +39,7 @@ public class ArticlesListActivity extends AppCompatActivity implements ArticlesN
 
     private void initDataBinding() {
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_articles_list);
-        ((Application) getApplication()).getAppComponent().doInjection(this);
+        ((ApplicationClass) getApplication()).getAppComponent().doInjection(this);
         viewModel = new ViewModelProvider(getViewModelStore(), viewModelFactory).get(ArticlesViewModel.class);
         viewModel.setArticlesNavigator(this);
         activityBinding.setViewModel(viewModel);

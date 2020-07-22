@@ -1,7 +1,7 @@
 package com.georges.mvvm.di;
 
 
-import com.georges.mvvm.Application;
+import com.georges.mvvm.ApplicationClass;
 import com.georges.mvvm.view.articles.ArticlesListActivity;
 
 import javax.inject.Singleton;
@@ -14,7 +14,7 @@ import dagger.Component;
 public interface AppComponent {
 
 
-    void doInjection(Application application);
+    void doInjection(ApplicationClass applicationClass);
 
     void doInjection(ArticlesListActivity articlesListActivity);
 }

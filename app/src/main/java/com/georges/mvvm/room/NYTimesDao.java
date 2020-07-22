@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.georges.mvvm.room.roomModel.CachingModel;
+import com.georges.mvvm.room.model.CachingModel;
 
 import io.reactivex.Single;
 

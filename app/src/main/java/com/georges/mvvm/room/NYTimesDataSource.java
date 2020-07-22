@@ -2,7 +2,7 @@ package com.georges.mvvm.room;
 
 import android.os.AsyncTask;
 
-import com.georges.mvvm.room.roomModel.CachingModel;
+import com.georges.mvvm.room.model.CachingModel;
 
 import java.util.Date;
 
@@ -22,7 +22,7 @@ public class NYTimesDataSource implements CachingRepository {
 
     @Override
     public void insert(CachingModel cashingModel) {
-        new insertAsyncTask(dao).execute(cashingModel);
+        new InsertAsyncTask(dao).execute(cashingModel);
     }
 
     @Override
@@ -32,14 +32,14 @@ public class NYTimesDataSource implements CachingRepository {
 
     @Override
     public void updateCaching(String apiResponse, Date date, long api) {
-        new updateAsyncTask(dao).execute(new CachingModel(api, apiResponse, date));
+        new UpdateAsyncTask(dao).execute(new CachingModel(api, apiResponse, date));
     }
 
-    private static class insertAsyncTask extends AsyncTask<CachingModel, Void, Void> {
+    private static class InsertAsyncTask extends AsyncTask<CachingModel, Void, Void> {
 
         private final NYTimesDao mAsyncTaskDao;
 
-        insertAsyncTask(NYTimesDao dao) {
+        InsertAsyncTask(NYTimesDao dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -50,11 +50,11 @@ public class NYTimesDataSource implements CachingRepository {
         }
     }
 
-    private static class updateAsyncTask extends AsyncTask<CachingModel, Void, Void> {
+    private static class UpdateAsyncTask extends AsyncTask<CachingModel, Void, Void> {
 
         private final NYTimesDao mAsyncTaskDao;
 
-        updateAsyncTask(NYTimesDao dao) {
+        UpdateAsyncTask(NYTimesDao dao) {
             mAsyncTaskDao = dao;
         }
 

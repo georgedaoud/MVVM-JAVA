@@ -10,6 +10,11 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class Adapter {
 
+    private Adapter() {
+
+    }
+
+
     @BindingAdapter({"imageUrl", "circular"})
     public static void loadImage(ImageView imageView, String imageUrl, boolean circular) {
         if (circular)

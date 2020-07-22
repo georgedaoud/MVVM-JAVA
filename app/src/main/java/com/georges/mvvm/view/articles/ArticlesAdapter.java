@@ -11,30 +11,30 @@ import com.georges.mvvm.R;
 import com.georges.mvvm.databinding.ItemArticleBinding;
 import com.georges.mvvm.repository.model.resp.Result;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
-    private final ArrayList<Result> arrayList;
+public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder> {
+    private final List<Result> arrayList;
     private LayoutInflater layoutInflater;
     final ArticlesViewModel viewModel;
 
-    public ArticlesAdapter(ArrayList<Result> arrayList, ArticlesViewModel viewModel) {
+    public ArticlesAdapter(List<Result> arrayList, ArticlesViewModel viewModel) {
         this.arrayList = arrayList;
         this.viewModel = viewModel;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArticlesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
         ItemArticleBinding itemArticleBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_article, parent, false);
-        return new ViewHolder(itemArticleBinding);
+        return new ArticlesViewHolder(itemArticleBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArticlesViewHolder holder, int position) {
         Result myListViewModel = arrayList.get(position);
         holder.bind(myListViewModel, viewModel);
     }
@@ -44,10 +44,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         return arrayList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ArticlesViewHolder extends RecyclerView.ViewHolder {
         private final ItemArticleBinding itemArticleBinding;
 
-        public ViewHolder(@NonNull ItemArticleBinding itemArticleBinding) {
+        public ArticlesViewHolder(@NonNull ItemArticleBinding itemArticleBinding) {
             super(itemArticleBinding.getRoot());
             this.itemArticleBinding = itemArticleBinding;
         }

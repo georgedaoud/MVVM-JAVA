@@ -44,7 +44,7 @@ public class Result implements Serializable {
     private String adxKeywords;
     @SerializedName("column")
     @Expose
-    private Object column;
+    private transient Object column;
     @SerializedName("byline")
     @Expose
     private String byline;
@@ -56,22 +56,22 @@ public class Result implements Serializable {
     private String title;
     @SerializedName("abstract")
     @Expose
-    private String _abstract;
+    private String abstractObject;
     @SerializedName("des_facet")
     @Expose
-    private List<String> desFacet = null;
+    private transient List<String> desFacet = null;
     @SerializedName("org_facet")
     @Expose
-    private List<String> orgFacet = null;
+    private transient List<String> orgFacet = null;
     @SerializedName("per_facet")
     @Expose
-    private List<String> perFacet = null;
+    private transient List<String> perFacet = null;
     @SerializedName("geo_facet")
     @Expose
-    private List<String> geoFacet = null;
+    private transient List<String> geoFacet = null;
     @SerializedName("media")
     @Expose
-    private List<Media> media = null;
+    private transient List<Media> media = null;
     @SerializedName("eta_id")
     @Expose
     private Long etaId;
@@ -197,11 +197,11 @@ public class Result implements Serializable {
     }
 
     public String getAbstract() {
-        return _abstract;
+        return abstractObject;
     }
 
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
+    public void setAbstract(String abstractObject) {
+        this.abstractObject = abstractObject;
     }
 
     public List<String> getDesFacet() {

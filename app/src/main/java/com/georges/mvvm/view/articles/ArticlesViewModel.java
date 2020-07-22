@@ -33,27 +33,24 @@ public class ArticlesViewModel extends BaseViewModel {
 
 
     public void getArticles() {
-        if (isNetworkConnected()) {
-            errorLiveData.setValue(false);
-            loadingLiveData.setValue(true);
-            disposable.add(repository.getArticles("emailed", "7").subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableSingleObserver<Articles>() {
-                        @Override
-                        public void onSuccess(Articles value) {
-                            articleResponseLiveData.setValue(value);
-                            loadingLiveData.setValue(false);
-                            errorLiveData.setValue(false);
-                        }
+        errorLiveData.setValue(false);
+        loadingLiveData.setValue(true);
+        disposable.add(repository.getArticles("emailed", "7").subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableSingleObserver<Articles>() {
+                    @Override
+                    public void onSuccess(Articles value) {
+                        articleResponseLiveData.setValue(value);
+                        loadingLiveData.setValue(false);
+                        errorLiveData.setValue(false);
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            errorLiveData.setValue(true);
-                            loadingLiveData.setValue(false);
+                    @Override
+                    public void onError(Throwable e) {
+                        errorLiveData.setValue(true);
+                        loadingLiveData.setValue(false);
 
-                        }
-                    }));
-        } else
-            errorLiveData.setValue(true);
+                    }
+                }));
     }
 
     public LiveData<Articles> getArticleResponseLiveData() {

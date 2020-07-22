@@ -25,7 +25,7 @@ public class Media implements Serializable {
     private Long approvedForSyndication;
     @SerializedName("media-metadata")
     @Expose
-    private List<MediaMetaData> mediaMetadata = null;
+    private transient List<MediaMetaData> mediaMetadata = null;
 
     public String getType() {
         return type;

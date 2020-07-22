@@ -19,7 +19,7 @@ public class Articles implements Serializable {
     private Long numResults;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private transient List<Result> results = null;
 
     public String getStatus() {
         return status;

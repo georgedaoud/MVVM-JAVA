@@ -71,19 +71,6 @@ public class UtilsModule {
         return new Repository(api);
     }
 
-//    @Provides
-//    @Singleton
-//    ViewModelProvider.Factory getViewModelFactory(Repository myRepository, UserSessionManager myUserSession, CachingRepository cashingRepository) {
-//        return new ViewModelFactory(myRepository, myUserSession, cashingRepository);
-//    }
-
-
-//    @Provides
-//    @Singleton
-//    public ConnectionDetector getConnectionDetector(Context context) {
-//        return new ConnectionDetector(context);
-//    }
-
     @Singleton
     @Provides
     CashingDatabase providesRoomDatabase(Context context) {

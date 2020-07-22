@@ -1,4 +1,4 @@
-package com.georges.mvvm.room.roomModel;
+package com.georges.mvvm.room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

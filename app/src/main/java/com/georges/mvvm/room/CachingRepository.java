@@ -1,7 +1,7 @@
 package com.georges.mvvm.room;
 
 
-import com.georges.mvvm.room.roomModel.CachingModel;
+import com.georges.mvvm.room.model.CachingModel;
 
 import java.util.Date;
 
