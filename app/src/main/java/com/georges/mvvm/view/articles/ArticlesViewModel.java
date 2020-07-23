@@ -16,8 +16,8 @@ import io.reactivex.schedulers.Schedulers;
 public class ArticlesViewModel extends BaseViewModel {
 
     private final MutableLiveData<Articles> articleResponseLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> errorLiveData = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> errorLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
 
     ArticlesNavigator articlesNavigator;
 
