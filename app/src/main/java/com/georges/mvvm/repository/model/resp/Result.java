@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result implements Serializable {
@@ -59,19 +60,19 @@ public class Result implements Serializable {
     private String abstractObject;
     @SerializedName("des_facet")
     @Expose
-    private transient List<String> desFacet = null;
+    private List<String> desFacet = new ArrayList<>();
     @SerializedName("org_facet")
     @Expose
-    private transient List<String> orgFacet = null;
+    private List<String> orgFacet = new ArrayList<>();
     @SerializedName("per_facet")
     @Expose
-    private transient List<String> perFacet = null;
+    private List<String> perFacet = new ArrayList<>();
     @SerializedName("geo_facet")
     @Expose
-    private transient List<String> geoFacet = null;
+    private List<String> geoFacet = new ArrayList<>();
     @SerializedName("media")
     @Expose
-    private transient List<Media> media = null;
+    private List<Media> media = new ArrayList<>();
     @SerializedName("eta_id")
     @Expose
     private Long etaId;

@@ -2,6 +2,7 @@
 package com.georges.mvvm.repository.model.resp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -19,7 +20,7 @@ public class Articles implements Serializable {
     private Long numResults;
     @SerializedName("results")
     @Expose
-    private transient List<Result> results = null;
+    private List<Result> results = new ArrayList<>();
 
     public String getStatus() {
         return status;

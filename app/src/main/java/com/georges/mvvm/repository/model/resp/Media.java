@@ -2,6 +2,7 @@
 package com.georges.mvvm.repository.model.resp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -25,7 +26,7 @@ public class Media implements Serializable {
     private Long approvedForSyndication;
     @SerializedName("media-metadata")
     @Expose
-    private transient List<MediaMetaData> mediaMetadata = null;
+    private List<MediaMetaData> mediaMetadata = new ArrayList<>();
 
     public String getType() {
         return type;
