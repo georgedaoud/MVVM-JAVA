@@ -43,7 +43,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 app:layoutManager="LinearLayoutManager"
-                app:setVisibility="@{!viewModel.loadingLiveData &amp;&amp; !viewModel.errorLiveData}"
+                app:setVisibility="@{(!viewModel.loadingLiveData &amp;&amp; !viewModel.errorLiveData) || viewModel.apiCachedLiveData}"
                 tools:listitem="@layout/item_article" />
 
             <ProgressBar
@@ -55,7 +55,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setVisibility="@{viewModel.loadingLiveData}" />
+                app:setVisibility="@{viewModel.loadingLiveData &amp;&amp; !viewModel.apiCachedLiveData}" />
 
             <LinearLayout
                 android:id="@+id/llError"
@@ -64,7 +64,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone"
-                app:setVisibility="@{viewModel.errorLiveData}">
+                app:setVisibility="@{viewModel.errorLiveData &amp;&amp; !viewModel.apiCachedLiveData}">
 
                 <TextView
                     android:id="@+id/tvError"

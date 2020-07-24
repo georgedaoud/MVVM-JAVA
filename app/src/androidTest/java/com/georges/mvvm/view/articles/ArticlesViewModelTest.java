@@ -5,7 +5,9 @@ import androidx.lifecycle.Observer;
 
 import com.georges.mvvm.repository.Repository;
 import com.georges.mvvm.repository.model.resp.Articles;
+import com.georges.mvvm.room.Apis;
 import com.georges.mvvm.room.CachingRepository;
+import com.georges.mvvm.room.model.CachingModel;
 import com.georges.mvvm.rule.RxSchedulersOverrideRule;
 
 import org.junit.After;
@@ -13,7 +15,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Date;
 
 import io.reactivex.Single;
 
@@ -38,6 +43,8 @@ public class ArticlesViewModelTest {
     Observer<Boolean> errorObserver;
     @Mock
     Observer<Boolean> loadingObserver;
+    @Mock
+    Observer<Boolean> apiCachedObserver;
 
     private ArticlesViewModel viewModel;
 
@@ -46,6 +53,50 @@ public class ArticlesViewModelTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         viewModel = new ArticlesViewModel(repository, cachingRepository);
+    }
+
+    @Test
+    public void testGetCachedArticlesData_whenReturnsData() {
+        //Assemble
+        Articles apiArticles = new Articles();
+        when(repository.getArticles(any(), any())).thenReturn(Single.just(apiArticles));
+
+        Articles cachingArticles = new Articles();
+        CachingModel cachingModel = new CachingModel(Apis.ARTICLES, "", new Date());
+        when(cachingRepository.getCachingByApi(Apis.ARTICLES)).thenReturn(Single.just(cachingModel));
+        ArticlesViewModel viewModel1 = Mockito.spy(viewModel);
+        Mockito.doReturn(cachingArticles).when(viewModel1).stringToArticles(Mockito.any());
+
+        //Act
+        viewModel1.getApiCachedLiveData().observeForever(apiCachedObserver);
+        viewModel1.getArticleResponseLiveData().observeForever(dataObserver);
+
+        viewModel1.getCachedArticles();
+
+        //Verify
+        verify(apiCachedObserver).onChanged(true);
+        verify(dataObserver).onChanged(cachingArticles);
+        verify(dataObserver).onChanged(apiArticles);
+    }
+
+    @Test
+    public void testGetCachedArticlesData_whenThrowsError() {
+        //Assemble
+        Articles apiArticles = new Articles();
+        when(repository.getArticles(any(), any())).thenReturn(Single.just(apiArticles));
+
+        Throwable throwable = new Throwable("Exception");
+        when(cachingRepository.getCachingByApi(Apis.ARTICLES)).thenReturn(Single.error(throwable));
+
+        //Act
+        viewModel.getApiCachedLiveData().observeForever(apiCachedObserver);
+        viewModel.getArticleResponseLiveData().observeForever(dataObserver);
+
+        viewModel.getCachedArticles();
+
+        //Verify
+        verify(apiCachedObserver).onChanged(false);
+        verify(dataObserver).onChanged(apiArticles);
     }
 
     @Test

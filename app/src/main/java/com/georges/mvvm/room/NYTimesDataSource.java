@@ -21,8 +21,8 @@ public class NYTimesDataSource implements CachingRepository {
     }
 
     @Override
-    public void insert(CachingModel cashingModel) {
-        new InsertAsyncTask(dao).execute(cashingModel);
+    public void insert(long api, String apiResponse, Date date) {
+        new InsertAsyncTask(dao).execute(new CachingModel(api, apiResponse, date));
     }
 
     @Override
@@ -31,7 +31,7 @@ public class NYTimesDataSource implements CachingRepository {
     }
 
     @Override
-    public void updateCaching(String apiResponse, Date date, long api) {
+    public void updateCaching(long api, String apiResponse, Date date) {
         new UpdateAsyncTask(dao).execute(new CachingModel(api, apiResponse, date));
     }
 
@@ -60,7 +60,7 @@ public class NYTimesDataSource implements CachingRepository {
 
         @Override
         protected Void doInBackground(final CachingModel... params) {
-            mAsyncTaskDao.updateCaching(params[0].getApiResponse(), params[0].getCachingDate().getTime(), params[0].getApi());
+            mAsyncTaskDao.updateCaching(params[0].getApi(), params[0].getApiResponse(), params[0].getCachingDate().getTime());
             return null;
         }
     }

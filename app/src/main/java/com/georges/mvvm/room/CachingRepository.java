@@ -9,9 +9,9 @@ import io.reactivex.Single;
 
 public interface CachingRepository {
 
-    void insert(CachingModel cashingModel);
+    void insert(long api, String apiResponse, Date date);
 
     Single<CachingModel> getCachingByApi(long api);
 
-    void updateCaching(String apiResponse, Date date, long api);
+    void updateCaching(long api, String apiResponse, Date date);
 }

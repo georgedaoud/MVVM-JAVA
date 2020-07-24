@@ -23,7 +23,7 @@ public interface NYTimesDao {
 
     @Query("UPDATE caching SET apiResponse=:apiResponse, cachingDate=:date WHERE api" +
             "=:api")
-    void updateCaching(String apiResponse, long date, long api);
+    void updateCaching(long api, String apiResponse, long date);
 
 }
 
