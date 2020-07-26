@@ -9,6 +9,7 @@ import com.georges.mvvm.util.DateConverter;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 @Entity(tableName = "caching")
 public class CachingModel {
 

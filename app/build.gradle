@@ -27,7 +27,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.georges.mvvm.runner.UiRunner"
     }
 
 
@@ -38,6 +38,7 @@ android {
             signingConfig signingConfigs.debug
             buildConfigField 'String', 'BASE_URL', '"https://api.nytimes.com/svc/"'
             buildConfigField 'String', 'API_KEY', '"dTHAT4MyZ0GiiWUjsp35mEoLYhtnS4IU"'
+            manifestPlaceholders = [usesCleartextTraffic:"true"]
         }
         release {
             debuggable false
@@ -45,6 +46,7 @@ android {
             buildConfigField 'String', 'BASE_URL', '"https://api.nytimes.com/svc/"'
             buildConfigField 'String', 'API_KEY', '"dTHAT4MyZ0GiiWUjsp35mEoLYhtnS4IU"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [usesCleartextTraffic:"false"]
         }
     }
     buildFeatures {
@@ -73,8 +75,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     implementation 'org.mockito:mockito-android:3.4.4'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation('com.squareup.okhttp3:mockwebserver:3.8.0') {
+        exclude group: "com.squareup.okhttp3"
+    }
+    androidTestImplementation 'com.google.dagger:dagger:2.27'
+    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.27'
+
 
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
@@ -82,6 +93,9 @@ dependencies {
     //Dagger dependency Injection
     implementation 'com.google.dagger:dagger:2.27'
     annotationProcessor "com.google.dagger:dagger-compiler:2.27"
+    implementation "com.google.dagger:dagger-android:2.27"
+    implementation "com.google.dagger:dagger-android-support:2.27"
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.27'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'javax.inject:javax.inject:1'
 

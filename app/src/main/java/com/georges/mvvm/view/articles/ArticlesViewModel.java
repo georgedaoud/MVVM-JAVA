@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -27,6 +29,7 @@ public class ArticlesViewModel extends BaseViewModel {
     private final MutableLiveData<Boolean> apiCached = new MutableLiveData<>();
     ArticlesNavigator articlesNavigator;
 
+    @Inject
     public ArticlesViewModel(Repository repository, CachingRepository cachingRepository) {
         super(repository, cachingRepository);
     }

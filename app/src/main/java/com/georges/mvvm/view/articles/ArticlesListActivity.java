@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.georges.mvvm.ApplicationClass;
 import com.georges.mvvm.R;
 import com.georges.mvvm.databinding.ActivityArticlesListBinding;
 import com.georges.mvvm.repository.model.resp.Result;
@@ -17,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class ArticlesListActivity extends AppCompatActivity implements ArticlesNavigator {
     public static final String RESULT_EXTRA = "result";
@@ -39,7 +40,7 @@ public class ArticlesListActivity extends AppCompatActivity implements ArticlesN
 
     private void initDataBinding() {
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_articles_list);
-        ((ApplicationClass) getApplication()).getAppComponent().doInjection(this);
+        AndroidInjection.inject(this);
         viewModel = new ViewModelProvider(getViewModelStore(), viewModelFactory).get(ArticlesViewModel.class);
         viewModel.setArticlesNavigator(this);
         activityBinding.setViewModel(viewModel);

@@ -1,6 +1,6 @@
 package com.georges.mvvm.di;
 
-import android.content.Context;
+import android.app.Application;
 
 import androidx.room.Room;
 
@@ -73,8 +73,8 @@ public class UtilsModule {
 
     @Singleton
     @Provides
-    CashingDatabase providesRoomDatabase(Context context) {
-        return Room.databaseBuilder(context, CashingDatabase.class, "cashing-db").build();
+    CashingDatabase providesRoomDatabase(Application application) {
+        return Room.databaseBuilder(application, CashingDatabase.class, "cashing-db").build();
 
     }
 

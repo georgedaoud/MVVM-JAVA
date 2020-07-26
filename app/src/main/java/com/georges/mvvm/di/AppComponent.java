@@ -1,20 +1,33 @@
 package com.georges.mvvm.di;
 
 
+import android.app.Application;
+
 import com.georges.mvvm.ApplicationClass;
-import com.georges.mvvm.view.articles.ArticlesListActivity;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 
-@Component(modules = {AppModule.class, UtilsModule.class})
 @Singleton
+@Component(modules = {UtilsModule.class, ViewModelModule.class,
+        AndroidSupportInjectionModule.class, ActivityModule.class})
 public interface AppComponent {
 
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        Builder application(Application application);
 
-    void doInjection(ApplicationClass applicationClass);
+        @BindsInstance
+        Builder utilsModule(UtilsModule utilsModule);
 
-    void doInjection(ArticlesListActivity articlesListActivity);
+        AppComponent build();
+    }
+
+    void inject(ApplicationClass applicationClass);
 }
+

@@ -1,33 +1,47 @@
 package com.georges.mvvm.util;
 
-import androidx.annotation.NonNull;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.georges.mvvm.repository.Repository;
-import com.georges.mvvm.room.CachingRepository;
-import com.georges.mvvm.view.articles.ArticlesViewModel;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 
-
+@Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
-    public final Repository repository;
-    public final CachingRepository cachingRepository;
+    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
     @Inject
-    public ViewModelFactory(Repository repository, CachingRepository cashingRepository) {
-        this.repository = repository;
-        this.cachingRepository = cashingRepository;
+    public ViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
+        this.creators = creators;
     }
 
     @SuppressWarnings("unchecked")
-    @NonNull
+    @NotNull
     @Override
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ArticlesViewModel.class))
-            return (T) new ArticlesViewModel(repository, cachingRepository);
-        throw new IllegalArgumentException("Unknown class name");
+    public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
+        Provider<? extends ViewModel> creator = creators.get(modelClass);
+        if (creator == null) {
+            for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
+                if (modelClass.isAssignableFrom(entry.getKey())) {
+                    creator = entry.getValue();
+                    break;
+                }
+            }
+        }
+        if (creator == null) {
+            throw new IllegalArgumentException("unknown model class " + modelClass);
+        }
+        try {
+            return (T) creator.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

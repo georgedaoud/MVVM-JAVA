@@ -1,27 +1,36 @@
 package com.georges.mvvm;
 
 
-import com.georges.mvvm.di.AppComponent;
-import com.georges.mvvm.di.AppModule;
+import android.app.Application;
+
 import com.georges.mvvm.di.DaggerAppComponent;
 import com.georges.mvvm.di.UtilsModule;
 
+import javax.inject.Inject;
 
-public class ApplicationClass extends android.app.Application {
-    AppComponent appComponent;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
 
 
-    public AppComponent getAppComponent() {
-        return appComponent;
-    }
+public class ApplicationClass extends Application implements HasAndroidInjector {
 
+    @Inject
+    DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).utilsModule(new UtilsModule()).build();
-        appComponent.doInjection(this);
+        DaggerAppComponent.builder()
+                .application(this)
+                .utilsModule(new UtilsModule())
+                .build()
+                .inject(this);
+    }
 
 
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return dispatchingAndroidInjector;
     }
 }
