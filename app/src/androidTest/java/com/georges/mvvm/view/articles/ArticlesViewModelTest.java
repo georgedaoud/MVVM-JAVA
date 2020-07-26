@@ -1,5 +1,7 @@
 package com.georges.mvvm.view.articles;
 
+import android.os.SystemClock;
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
@@ -72,6 +74,7 @@ public class ArticlesViewModelTest {
         viewModel1.getArticleResponseLiveData().observeForever(dataObserver);
 
         viewModel1.getCachedArticles();
+        SystemClock.sleep(2000);
 
         //Verify
         verify(apiCachedObserver).onChanged(true);
@@ -93,6 +96,7 @@ public class ArticlesViewModelTest {
         viewModel.getArticleResponseLiveData().observeForever(dataObserver);
 
         viewModel.getCachedArticles();
+        SystemClock.sleep(2000);
 
         //Verify
         verify(apiCachedObserver).onChanged(false);
@@ -111,6 +115,7 @@ public class ArticlesViewModelTest {
         viewModel.getArticleResponseLiveData().observeForever(dataObserver);
 
         viewModel.getArticles();
+        SystemClock.sleep(2000);
 
         //Verify
         verify(loadingObserver).onChanged(true);
@@ -131,6 +136,7 @@ public class ArticlesViewModelTest {
         viewModel.getArticleResponseLiveData().observeForever(dataObserver);
 
         viewModel.getArticles();
+        SystemClock.sleep(2000);
 
         //Verify
         verify(loadingObserver).onChanged(true);
