@@ -14,7 +14,7 @@ import com.georges.mvvm.repository.model.resp.Result;
 
 import static com.georges.mvvm.view.articles.ArticlesListActivity.RESULT_EXTRA;
 
-public class ArticleDetailActivity extends AppCompatActivity {
+public class ArticleDetailActivity extends AppCompatActivity {//NOSONAR
     private ActivityArticleDetailBinding activityBinding;
 
     @Override

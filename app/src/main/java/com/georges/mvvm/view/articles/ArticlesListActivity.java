@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-public class ArticlesListActivity extends AppCompatActivity implements ArticlesNavigator {
+public class ArticlesListActivity extends AppCompatActivity implements ArticlesNavigator { //NOSONAR
     public static final String RESULT_EXTRA = "result";
 
     @Inject
